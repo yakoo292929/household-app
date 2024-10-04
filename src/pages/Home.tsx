@@ -10,15 +10,44 @@
  * ===========================================================================================
 **/
 
-import React from 'react';
+import { Box } from '@mui/material';
+import MonthlySummary from '../components/layout/MonthlySummary';
+import Calendar from '../components/layout/Calendar';
+import TransactionMenu from '../components/layout/TransactionMenu';
+import TransactionForm from '../components/layout/TransactionForm';
+import { Transaction } from '../types/index';
 
-const Home = () => {
+
+//-----------------------------------------//
+// 型定義
+//-----------------------------------------//
+interface HomeProps {
+  monthlyTransactions: Transaction[]
+}
+
+const Home = ({monthlyTransactions}: HomeProps) => {
 
   /////////////////////////////////////////////
   // 画面表示
   /////////////////////////////////////////////
   return (
-    <div>Home</div>
+
+    <Box sx={{display: "flex"}}>
+
+      {/* 左側コンテンツ */}
+      <Box sx={{flexGrow: 1}}>
+        <MonthlySummary monthlyTransactions={monthlyTransactions} />
+        <Calendar />
+      </Box>
+
+      {/* 右側コンテンツ */}
+      <Box>
+        <TransactionMenu />
+        <TransactionForm />
+      </Box>
+
+    </Box>
+
   );
 
 };

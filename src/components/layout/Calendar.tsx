@@ -1,24 +1,26 @@
 /**
  * ===========================================================================================
  * SYSTEM NAME    : household-app
- * PROGRAM ID     : src/pages/NoMatch.tsx
- * PROGRAM NAME   : NoMatch.tsx
- *                : ページ：NoMatchページ
+ * PROGRAM ID     : src/components/Calendar.tsx
+ * PROGRAM NAME   : Calendar.tsx
+ *                : レイアウト：カレンダー
  * DEVELOPED BY   : yamabakery
  * CREATE DATE    : 2024/10/01
  * CREATE AUTHOR  : yakoo292929
  * ===========================================================================================
 **/
 
-const NoMatch = () => {
+const Calendar = () => {
 
   /////////////////////////////////////////////
   // 画面表示
   /////////////////////////////////////////////
   return (
-    <div>このページはありません。</div>
+
+    <div>Calendar</div>
+
   );
 
 };
 
-export default NoMatch;
+export default Calendar;

@@ -95,10 +95,11 @@ const SideBar = ({drawerWidth, mobileOpen, handleDrawerClose,handleDrawerTransit
 
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
       aria-label="mailbox folders"
     >
 
+      {/* モバイル用 */}
       <Drawer
         variant="temporary"
         open={mobileOpen}
@@ -108,18 +109,19 @@ const SideBar = ({drawerWidth, mobileOpen, handleDrawerClose,handleDrawerTransit
           keepMounted: true,  // モバイルパフォーマンス向上
         }}
         sx={{
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
       >
         {drawer}
       </Drawer>
 
+      {/* PC用 */}
       <Drawer
         variant="permanent"
         sx={{
-          display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          display: { xs: "none", md: "block" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
         open
       >

@@ -1,24 +1,24 @@
 /**
  * ===========================================================================================
  * SYSTEM NAME    : household-app
- * PROGRAM ID     : src/pages/NoMatch.tsx
- * PROGRAM NAME   : NoMatch.tsx
- *                : ページ：NoMatchページ
+ * PROGRAM ID     : src/components/TransactionMenu.tsx
+ * PROGRAM NAME   : TransactionMenu.tsx
+ *                : レイアウト：トランザクションメニュー
  * DEVELOPED BY   : yamabakery
  * CREATE DATE    : 2024/10/01
  * CREATE AUTHOR  : yakoo292929
  * ===========================================================================================
 **/
 
-const NoMatch = () => {
+const TransactionMenu = () => {
 
   /////////////////////////////////////////////
   // 画面表示
   /////////////////////////////////////////////
   return (
-    <div>このページはありません。</div>
+    <div>TransactionMenu</div>
   );
 
 };
 
-export default NoMatch;
+export default TransactionMenu;

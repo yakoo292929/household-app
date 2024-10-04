@@ -61,7 +61,7 @@ export default function AppLayo() {
   // 画面表示
   /////////////////////////////////////////////
   return (
-    <Box sx={{ display: 'flex', bgcolor: (theme) => theme.palette.grey[100], minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", bgcolor: (theme) => theme.palette.grey[100], minHeight: "100vh" }}>
 
       <CssBaseline />
 
@@ -69,8 +69,8 @@ export default function AppLayo() {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
+          ml: { md: `${drawerWidth}px` },
         }}
       >
         <Toolbar>
@@ -80,7 +80,7 @@ export default function AppLayo() {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { md: "none" } }}
           >
             {/* ハンバガーメニュー */}
             <MenuIcon />
@@ -106,7 +106,11 @@ export default function AppLayo() {
       {/* メインコンテンツ */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { md: `calc(100% - ${drawerWidth}px)` },
+        }}
       >
         <Toolbar />
 
