@@ -21,6 +21,13 @@ export function formatMonth(date: Date):string {
   return format(date, "yyyy-MM")
 }
 
+//-----------------------------------------//
+// 日本円変換 関数
+//-----------------------------------------//
+export function formmatCurrency(amount: number): string {
+  return amount.toLocaleString("ja-JP");
+}
+
 
 //-----------------------------------------//
 // トランザクション収支計算 関数
@@ -42,5 +49,31 @@ export function financeCalculations(transactions: Transaction[]): Balance {
     return acc;
 
   }, {income: 0, expence: 0, balance: 0});
+
+}
+
+//-----------------------------------------//
+// 日毎収支計算 関数
+//-----------------------------------------//
+export function calculateDailyBalances(transactions: Transaction[]): Record<string, Balance> {
+  return transactions.reduce<Record<string, Balance>>((acc, transaction) => {
+    const day = transaction.date;
+    if (!acc[day]) {
+        acc[day] = {income: 0, expence: 0, balance: 0};
+    }
+
+    if (transaction.type === "income") {
+        // 収入計算
+        acc[day].income += transaction.amount;
+    } else {
+        // 支出計算
+        acc[day].expence += transaction.amount;
+    }
+    // 残高計算
+    acc[day].balance = acc[day].income - acc[day].expence;
+
+    return acc;
+
+  }, {});
 
 }

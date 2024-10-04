@@ -27,9 +27,9 @@ interface MonthlySummaryProps {
 
 const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
 
-  // console.log(monthlyTransactions);
   // トランザクション収支計算
   const {income, expence, balance} = financeCalculations(monthlyTransactions);
+
 
   /////////////////////////////////////////////
   // 画面表示

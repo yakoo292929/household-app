@@ -22,10 +22,12 @@ import { Transaction } from '../types/index';
 // 型定義
 //-----------------------------------------//
 interface HomeProps {
-  monthlyTransactions: Transaction[]
+  monthlyTransactions: Transaction[],
+  setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>,
+
 }
 
-const Home = ({monthlyTransactions}: HomeProps) => {
+const Home = ({monthlyTransactions, setCurrentMonth}: HomeProps) => {
 
   /////////////////////////////////////////////
   // 画面表示
@@ -37,7 +39,7 @@ const Home = ({monthlyTransactions}: HomeProps) => {
       {/* 左側コンテンツ */}
       <Box sx={{flexGrow: 1}}>
         <MonthlySummary monthlyTransactions={monthlyTransactions} />
-        <Calendar />
+        <Calendar monthlyTransactions={monthlyTransactions} setCurrentMonth={setCurrentMonth}/>
       </Box>
 
       {/* 右側コンテンツ */}
