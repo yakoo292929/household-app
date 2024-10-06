@@ -20,13 +20,13 @@ declare module '@mui/material/styles' {
   //-----------------------------------------//
   interface Palette {
     incomeColor: PaletteColor;
-    expenceColor: PaletteColor;
+    expenseColor: PaletteColor;
     balanceColor: PaletteColor;
   }
 
   interface PaletteOptions {
     incomeColor?: PaletteColorOptions;
-    expenceColor?: PaletteColorOptions;
+    expenseColor?: PaletteColorOptions;
     balanceColor?: PaletteColorOptions;
   }
 
@@ -49,7 +49,7 @@ export const theme = createTheme({
       dark: blue[700],
     },
     // 支出の色を定義
-    expenceColor: {
+    expenseColor: {
       main: red[500],
       light: red[100],
       dark: red[700],

@@ -10,9 +10,9 @@
  * ===========================================================================================
 **/
 
-export type TransactionType = "income" | "expence";
+export type TransactionType = "income" | "expense";
 export type IncomeCategory = "給与" | "副収入" | "お小遣い";
-export type ExpenceCategory = "食費" | "日用品" | "住宅費" | "交際費" | "娯楽" | "交通費";
+export type ExpenseCategory = "食費" | "日用品" | "住宅費" | "交際費" | "娯楽" | "交通費";
 
 export interface Transaction {
   id: string,
@@ -20,18 +20,18 @@ export interface Transaction {
   amount: number,
   content: string,
   type: TransactionType,
-  category: IncomeCategory | ExpenceCategory,
+  category: IncomeCategory | ExpenseCategory,
 }
 
 export interface Balance {
   income: number,
-  expence: number,
+  expense: number,
   balance: number,
 }
 
 export interface CalendarContent {
   start: string,
   income: string,
-  expence: string,
+  expense: string,
   balance: string,
 }

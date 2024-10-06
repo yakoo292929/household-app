@@ -41,14 +41,14 @@ export function financeCalculations(transactions: Transaction[]): Balance {
         acc.income += transaction.amount;
     } else {
         // 支出計算
-        acc.expence += transaction.amount;
+        acc.expense += transaction.amount;
     }
     // 残高計算
-    acc.balance = acc.income - acc.expence;
+    acc.balance = acc.income - acc.expense;
 
     return acc;
 
-  }, {income: 0, expence: 0, balance: 0});
+  }, {income: 0, expense: 0, balance: 0});
 
 }
 
@@ -59,7 +59,7 @@ export function calculateDailyBalances(transactions: Transaction[]): Record<stri
   return transactions.reduce<Record<string, Balance>>((acc, transaction) => {
     const day = transaction.date;
     if (!acc[day]) {
-        acc[day] = {income: 0, expence: 0, balance: 0};
+        acc[day] = {income: 0, expense: 0, balance: 0};
     }
 
     if (transaction.type === "income") {
@@ -67,10 +67,10 @@ export function calculateDailyBalances(transactions: Transaction[]): Record<stri
         acc[day].income += transaction.amount;
     } else {
         // 支出計算
-        acc[day].expence += transaction.amount;
+        acc[day].expense += transaction.amount;
     }
     // 残高計算
-    acc[day].balance = acc[day].income - acc[day].expence;
+    acc[day].balance = acc[day].income - acc[day].expense;
 
     return acc;
 
