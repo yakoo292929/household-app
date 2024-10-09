@@ -10,10 +10,10 @@
  * ===========================================================================================
 **/
 
-import { createTheme, PaletteColor, PaletteColorOptions } from '@mui/material';
-import { blue, red, green } from '@mui/material/colors';
+import { createTheme, PaletteColor, PaletteColorOptions } from "@mui/material";
+import { blue, red, green } from "@mui/material/colors";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
 
   //-----------------------------------------//
   // 型定義

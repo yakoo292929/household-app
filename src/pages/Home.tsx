@@ -10,15 +10,16 @@
  * ===========================================================================================
 **/
 
-import { Box } from '@mui/material';
-import MonthlySummary from '../components/layout/MonthlySummary';
-import Calendar from '../components/layout/Calendar';
-import TransactionMenu from '../components/layout/TransactionMenu';
-import TransactionForm from '../components/layout/TransactionForm';
-import { Transaction } from '../types/index';
-import { useState } from 'react';
-import { format } from 'date-fns';
+import { useState } from "react";
 
+import { Box } from "@mui/material";
+
+import MonthlySummary from "../components/layout/MonthlySummary";
+import Calendar from "../components/layout/Calendar";
+import TransactionMenu from "../components/layout/TransactionMenu";
+import TransactionForm from "../components/layout/TransactionForm";
+import { Transaction } from "../types/index";
+import { format } from "date-fns";
 
 //-----------------------------------------//
 // 型定義
@@ -35,12 +36,33 @@ const Home = ({monthlyTransactions, setCurrentMonth}: HomeProps) => {
   //-----------------------------------------//
   const today = format(new Date(), "yyyy-MM-dd");
   const [currentDay, setCurrentDay] = useState(today);
+  const [isEntryDrawerOpen, setIsEntryDrawerOpen] = useState(false);
 
+
+  //-----------------------------------------//
   // 日取引取得
+  //-----------------------------------------//
   const dailyTransactions = monthlyTransactions.filter((transaction) => {
     return transaction.date === currentDay;
   });
   // console.log(dailyTransactions);
+
+
+  //-----------------------------------------//
+  // 取引フォーム開閉
+  //-----------------------------------------//
+  const CloseForm = () => {
+    setIsEntryDrawerOpen(!isEntryDrawerOpen);
+  };
+
+
+  //-----------------------------------------//
+  // 取引フォーム開閉処理
+  //-----------------------------------------//
+  const handleAddTransactionForm = () => {
+    setIsEntryDrawerOpen(!isEntryDrawerOpen);
+  };
+
 
   /////////////////////////////////////////////
   // 画面表示
@@ -49,7 +71,7 @@ const Home = ({monthlyTransactions, setCurrentMonth}: HomeProps) => {
 
     <Box sx={{display: "flex"}}>
 
-      {/* 左側コンテンツ */}
+      {/* 左側コンテンツ：月間収支・月間カレンダー */}
       <Box sx={{flexGrow: 1}}>
         <MonthlySummary monthlyTransactions={monthlyTransactions} />
         <Calendar
@@ -61,10 +83,18 @@ const Home = ({monthlyTransactions, setCurrentMonth}: HomeProps) => {
         />
       </Box>
 
-      {/* 右側コンテンツ */}
+      {/* 右側コンテンツ：取引メニュー・内訳入力フォーム */}
       <Box>
-        <TransactionMenu dailyTransactions={dailyTransactions} currentDay={currentDay} />
-        <TransactionForm />
+        <TransactionMenu
+          dailyTransactions={dailyTransactions}
+          currentDay={currentDay}
+          onAddTransactionForm={handleAddTransactionForm}
+        />
+        <TransactionForm
+          onCloseForm={CloseForm}
+          currentDay={currentDay}
+          isEntryDrawerOpen={isEntryDrawerOpen}
+        />
       </Box>
 
     </Box>

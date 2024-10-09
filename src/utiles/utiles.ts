@@ -10,8 +10,8 @@
  * ===========================================================================================
 **/
 
-import { format } from 'date-fns';
-import { Balance, Transaction } from '../types/index';
+import { format } from "date-fns";
+import { Balance, Transaction } from "../types/index";
 
 
 //-----------------------------------------//

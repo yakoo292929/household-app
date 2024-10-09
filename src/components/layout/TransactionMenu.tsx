@@ -14,8 +14,8 @@ import { Box, Button, Card, CardActionArea, CardContent, Drawer, Grid, List, Lis
 import NotesIcon from "@mui/icons-material/Notes";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import DailySummary from "./DailySummary";
 import { Transaction } from "../../types";
+import DailySummary from "./DailySummary";
 import { formmatCurrency } from "../../utiles/utiles";
 import IconComponents from "../common/IconComponents";
 
@@ -25,9 +25,10 @@ import IconComponents from "../common/IconComponents";
 interface TransactionMenuProps {
   dailyTransactions: Transaction[];
   currentDay: string;
+  onAddTransactionForm: () => void;
 }
 
-const TransactionMenu = ({dailyTransactions, currentDay}: TransactionMenuProps) => {
+const TransactionMenu = ({ dailyTransactions, currentDay, onAddTransactionForm }: TransactionMenuProps) => {
   const menuDrawerWidth = 320;
 
   /////////////////////////////////////////////
@@ -73,7 +74,7 @@ const TransactionMenu = ({dailyTransactions, currentDay}: TransactionMenuProps) 
           </Box>
 
           {/* 右側の追加ボタン */}
-          <Button startIcon={<AddCircleIcon />} color="primary">
+          <Button startIcon={<AddCircleIcon />} color="primary" onClick={onAddTransactionForm}>
             内訳を追加
           </Button>
 

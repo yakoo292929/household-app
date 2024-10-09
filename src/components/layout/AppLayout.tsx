@@ -10,17 +10,18 @@
  * ===========================================================================================
 **/
 
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Outlet } from 'react-router-dom';
+import * as React from "react";
+import { Outlet } from "react-router-dom";
 
-import SideBar from '../common/SideBar';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+
+import SideBar from "../common/SideBar";
 
 const drawerWidth = 240;
 
@@ -34,7 +35,7 @@ export default function AppLayo() {
   const [isClosing, setIsClosing] = React.useState(false);
 
   //-----------------------------------------//
-  // ドロワークローズ関数
+  // ドロワークローズ 関数
   //-----------------------------------------//
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -42,14 +43,14 @@ export default function AppLayo() {
   };
 
   //-----------------------------------------//
-  // ドロワーアニメーション終了時関数
+  // ドロワーアニメーション終了時 関数
   //-----------------------------------------//
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
   };
 
   //-----------------------------------------//
-  // ドロワートグル関数
+  // ドロワートグル 関数
   //-----------------------------------------//
   const handleDrawerToggle = () => {
     if (!isClosing) {
