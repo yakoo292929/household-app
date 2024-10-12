@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 
-import { collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -26,8 +26,14 @@ import NoMatch from "./pages/NoMatch";
 import AppLayout from "./components/layout/AppLayout";
 import {theme} from "./theme/theme";
 import { formatMonth } from "./utiles/utiles";
+import { Schema } from "./validations/schema";
 
+
+////////////////////////////////////////////////////////////////////////
+// App
+////////////////////////////////////////////////////////////////////////
 function App() {
+
 
   //-----------------------------------------//
   // firestoreエラー判断 関数
@@ -42,8 +48,7 @@ function App() {
   //-----------------------------------------//
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  // const confirmDate = format(currentMonth, "yyyy-MM");
-  // console.log(confirmDate);
+  const [selectedTransactions, setSelectedTransactions] = useState<Transaction | null>(null);
 
 
   //-----------------------------------------//
@@ -87,11 +92,101 @@ function App() {
   }, []);
 
 
+  //-----------------------------------------//
   // 当月分の取引データ取得
+  //-----------------------------------------//
   const monthlyTransactions = transactions.filter((transaction) => {
     return transaction.date.startsWith(formatMonth(currentMonth));
   });
   // console.log(monthlyTransactions);
+
+
+  //-----------------------------------------//
+  // 取引保存処理
+  //-----------------------------------------//
+  const handleSaveTransaction = async (trasaction: Schema) => {
+
+    try {
+
+      // firestoreデータ保存
+      const docRef = await addDoc(collection(db, "Transactions"), trasaction);
+
+      // 画面更新
+      const newTransaction = {
+        id: docRef.id,
+        ...trasaction
+      } as Transaction;
+      setTransactions(prevTransaction => [...prevTransaction, newTransaction]);
+
+    } catch(err) {
+
+      // firestoreエラー判断
+      if (isFireStoreError(err)) {
+          console.error("firebaseのエラー：", err);
+      } else {
+          console.error("一般的なエラー：", err);
+      }
+
+    }
+
+  };
+
+
+  //-----------------------------------------//
+  // 取引更新処理
+  //-----------------------------------------//
+  const handleUpdateTransaction = async (transaction: Schema, trasactionId: string) => {
+
+    try {
+
+      // firestoreデータ更新
+      const docRef = doc(db, "Transactions", trasactionId);
+      await updateDoc(docRef, transaction);
+
+      // 画面更新-更新前・後データ マージ
+      const updatedTransactions = transactions.map((t) => t.id === trasactionId ? {...t, ...transaction} : t) as Transaction[];
+      setTransactions(updatedTransactions);
+
+    } catch(err) {
+
+      // firestoreエラー判断
+      if (isFireStoreError(err)) {
+          console.error("firebaseのエラー：", err);
+      } else {
+          console.error("一般的なエラー：", err);
+      }
+
+    }
+
+  };
+
+
+  //-----------------------------------------//
+  // 取引削除処理
+  //-----------------------------------------//
+  const handleDeleteTransanction = async (trasactionId: string) => {
+
+    try {
+
+      // firestoreデータ削除
+      const docRef = await deleteDoc(doc(db, "Transactions", trasactionId));
+
+      // 画面更新-削除以外データフィルタリング
+      const filteredTransactions = transactions.filter((transaction) => transaction.id !== trasactionId);
+      setTransactions(filteredTransactions);
+
+    } catch(err) {
+
+      // firestoreエラー判断
+      if (isFireStoreError(err)) {
+          console.error("firebaseのエラー：", err);
+      } else {
+          console.error("一般的なエラー：", err);
+      }
+
+    }
+
+  };
 
 
   /////////////////////////////////////////////
@@ -104,7 +199,18 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<AppLayout />}>
-            <Route index element={<Home monthlyTransactions={monthlyTransactions} setCurrentMonth={setCurrentMonth}/>} />
+            <Route
+              index
+              element={
+                <Home
+                  monthlyTransactions={monthlyTransactions}
+                  setCurrentMonth={setCurrentMonth}
+                  onSaveTransaction={handleSaveTransaction}
+                  onDeleteTransanction={handleDeleteTransanction}
+                  onUpdateTransaction={handleUpdateTransaction}
+                />
+              }
+            />
             <Route path="/report" element={<Report />} />
             <Route path="/*" element={<NoMatch />} />
           </Route>

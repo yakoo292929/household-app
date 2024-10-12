@@ -22,6 +22,10 @@ interface DailySummaryProps {
   dailyTransactions: Transaction[];
 }
 
+
+////////////////////////////////////////////////////////////////////////
+// DailySummary
+////////////////////////////////////////////////////////////////////////
 const DailySummary = ({dailyTransactions}: DailySummaryProps) => {
 
   const {income, expense, balance} = financeCalculations(dailyTransactions);
@@ -42,7 +46,7 @@ const DailySummary = ({dailyTransactions}: DailySummaryProps) => {
           >
             <CardContent>
               <Typography variant="body2" noWrap textAlign="center">
-                収入
+                収 入
               </Typography>
               <Typography
                 textAlign="right"
@@ -62,7 +66,7 @@ const DailySummary = ({dailyTransactions}: DailySummaryProps) => {
           >
             <CardContent>
               <Typography variant="body2" noWrap textAlign="center">
-                支出
+                支 出
               </Typography>
               <Typography
                 textAlign="right"
@@ -82,7 +86,7 @@ const DailySummary = ({dailyTransactions}: DailySummaryProps) => {
           >
             <CardContent>
               <Typography variant="body2" noWrap textAlign="center">
-                残高
+                残 高
               </Typography>
               <Typography
                 textAlign="right"

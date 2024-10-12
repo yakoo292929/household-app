@@ -25,6 +25,10 @@ interface MonthlySummaryProps {
   monthlyTransactions: Transaction[]
 }
 
+
+////////////////////////////////////////////////////////////////////////
+// MonthlySummary
+////////////////////////////////////////////////////////////////////////
 const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
 
   // トランザクション収支計算
@@ -50,7 +54,7 @@ const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
           <CardContent sx={{ padding: {xs: 1, sm: 2} }}>
             <Stack direction={"row"}>
               <ArrowUpwardIcon sx={{ fontSize: "2rem" }} />
-              <Typography>収入</Typography>
+              <Typography>収 入</Typography>
             </Stack>
             <Typography
               textAlign={"right"}
@@ -79,7 +83,7 @@ const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
           <CardContent sx={{ padding: {xs: 1, sm: 2} }}>
             <Stack direction={"row"}>
               <ArrowDownwardIcon sx={{ fontSize: "2rem" }} />
-              <Typography>支出</Typography>
+              <Typography>支 出</Typography>
             </Stack>
             <Typography
               textAlign={"right"}
@@ -108,7 +112,7 @@ const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
           <CardContent sx={{ padding: {xs: 1, sm: 2} }}>
             <Stack direction={"row"}>
               <AccountBalanceIcon sx={{ fontSize: "2rem" }} />
-              <Typography>残高</Typography>
+              <Typography>残 高</Typography>
             </Stack>
             <Typography
               textAlign={"right"}

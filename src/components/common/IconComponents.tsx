@@ -22,8 +22,11 @@ import SaveingsIcon from "@mui/icons-material/Savings";
 
 import { ExpenseCategory, IncomeCategory } from "../../types";
 
-
+////////////////////////////////////////////////////////////////////////
+// IconComponents
+////////////////////////////////////////////////////////////////////////
 const IconComponents: Record<IncomeCategory | ExpenseCategory, JSX.Element> = {
+
   食費: <FastfoodIcon fontSize="small" />,
   日用品: <AlarmIcon fontSize="small" />,
   住宅費: <AddHomeIcon fontSize="small" />,
@@ -33,6 +36,7 @@ const IconComponents: Record<IncomeCategory | ExpenseCategory, JSX.Element> = {
   給与: <WorkIcon fontSize="small" />,
   副収入: <AddBusinessIcon fontSize="small" />,
   お小遣い: <SaveingsIcon fontSize="small" />,
+  
 };
 
 export default IconComponents;

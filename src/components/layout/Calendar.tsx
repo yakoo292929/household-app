@@ -34,6 +34,10 @@ interface CalendarProps {
   today: string;
 }
 
+
+////////////////////////////////////////////////////////////////////////
+// Calendar
+////////////////////////////////////////////////////////////////////////
 const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentDay, today}: CalendarProps) => {
 
   const theme = useTheme();

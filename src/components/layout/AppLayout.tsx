@@ -26,13 +26,17 @@ import SideBar from "../common/SideBar";
 const drawerWidth = 240;
 
 
-export default function AppLayo() {
+////////////////////////////////////////////////////////////////////////
+// AppLayout
+////////////////////////////////////////////////////////////////////////
+export default function AppLayout() {
 
   //-----------------------------------------//
   // useState：状態管理
   //-----------------------------------------//
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+
 
   //-----------------------------------------//
   // ドロワークローズ 関数
@@ -42,12 +46,14 @@ export default function AppLayo() {
     setMobileOpen(false);
   };
 
+
   //-----------------------------------------//
   // ドロワーアニメーション終了時 関数
   //-----------------------------------------//
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
   };
+
 
   //-----------------------------------------//
   // ドロワートグル 関数
@@ -58,10 +64,12 @@ export default function AppLayo() {
     }
   };
 
+
   /////////////////////////////////////////////
   // 画面表示
   /////////////////////////////////////////////
   return (
+
     <Box sx={{ display: "flex", bgcolor: (theme) => theme.palette.grey[100], minHeight: "100vh" }}>
 
       <CssBaseline />
