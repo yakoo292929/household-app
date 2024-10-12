@@ -48,7 +48,7 @@ function App() {
   //-----------------------------------------//
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
-
+  const [isLoading, setIsLoading] = useState(true);
 
   //-----------------------------------------//
   // useEffect：副作用レンダリング以外の処理
@@ -69,7 +69,6 @@ function App() {
         });
         // console.log(transactionsData);
 
-        // 状態管理
         setTransactions(transactionsData);
 
       } catch(err) {
@@ -82,6 +81,10 @@ function App() {
         } else {
             console.error("一般的なエラー：", err);
         }
+
+      } finally {
+
+        setIsLoading(false);
 
       }
 
@@ -221,6 +224,8 @@ function App() {
                 <Report
                   currentMonth={currentMonth}
                   setCurrentMonth={setCurrentMonth}
+                  monthlyTransactions={monthlyTransactions}
+                  isLoading={isLoading}
                 />
               }
             />

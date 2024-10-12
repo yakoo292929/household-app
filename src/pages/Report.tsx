@@ -16,6 +16,7 @@ import MonthSelector from "../components/layout/MonthSelector";
 import CategoryChart from "../components/layout/CategoryChart";
 import BarChart from "../components/layout/BarChart";
 import TransactionTable from "../components/layout/TransactionTable";
+import { Transaction } from "../types";
 
 
 //-----------------------------------------//
@@ -24,18 +25,26 @@ import TransactionTable from "../components/layout/TransactionTable";
 interface ReportProps {
   currentMonth: Date;
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
+  monthlyTransactions: Transaction[];
+  isLoading: boolean;
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 // Report
 ////////////////////////////////////////////////////////////////////////
-const Report = ({currentMonth, setCurrentMonth}: ReportProps) => {
+const Report = ({
+  currentMonth,
+  setCurrentMonth,
+  monthlyTransactions,
+  isLoading
+}: ReportProps) => {
 
   const commonPaperStyle = {
-    height: {xs: "auto", md: "400px"},
+    height: "400px",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    p: 4,
   }
 
   /////////////////////////////////////////////
@@ -57,7 +66,9 @@ const Report = ({currentMonth, setCurrentMonth}: ReportProps) => {
 
       {/* 棒グラフ */}
       <Grid item xs={12} md={8}>
-        <Paper sx={commonPaperStyle}><BarChart /></Paper>
+        <Paper sx={commonPaperStyle}>
+          <BarChart monthlyTransactions={monthlyTransactions} isLoading={isLoading} />
+        </Paper>
       </Grid>
 
       {/* 取引テーブル */}
