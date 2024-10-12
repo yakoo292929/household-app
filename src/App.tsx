@@ -48,7 +48,6 @@ function App() {
   //-----------------------------------------//
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedTransactions, setSelectedTransactions] = useState<Transaction | null>(null);
 
 
   //-----------------------------------------//
@@ -193,12 +192,16 @@ function App() {
   // 画面表示
   /////////////////////////////////////////////
   return (
+
     <ThemeProvider theme={theme}>
+
       <CssBaseline />
 
       <Router>
         <Routes>
+
           <Route path="/" element={<AppLayout />}>
+
             <Route
               index
               element={
@@ -211,12 +214,25 @@ function App() {
                 />
               }
             />
-            <Route path="/report" element={<Report />} />
+
+            <Route
+              path="/report"
+              element={
+                <Report
+                  currentMonth={currentMonth}
+                  setCurrentMonth={setCurrentMonth}
+                />
+              }
+            />
+
             <Route path="/*" element={<NoMatch />} />
           </Route>
+
         </Routes>
       </Router>
+
     </ThemeProvider>
+
   );
 }
 
