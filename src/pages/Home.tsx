@@ -28,7 +28,7 @@ interface HomeProps {
   monthlyTransactions: Transaction[];
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
   onSaveTransaction: (trasaction: Schema) => Promise<void>;
-  onDeleteTransanction: (trasactionId: string) => Promise<void>;
+  onDeleteTransanction: (trasactionId: string | readonly string[]) => Promise<void>;
   onUpdateTransaction: (transaction: Schema, trasactionId: string) => Promise<void>;
 }
 

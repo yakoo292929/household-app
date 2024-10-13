@@ -38,7 +38,7 @@ interface TransactionFormProps {
   isEntryDrawerOpen: boolean;
   onSaveTransaction: (trasaction: Schema) => Promise<void>;
   selectedTransactions: Transaction | null;
-  onDeleteTransanction: (transactionId: string) => Promise<void>;
+  onDeleteTransanction: (transactionId: string | readonly string[]) => Promise<void>;
   setSelectedTransactions: React.Dispatch<React.SetStateAction<Transaction | null>>;
   onUpdateTransaction: (transaction: Schema, trasactionId: string) => Promise<void>;
 }
@@ -382,7 +382,7 @@ const TransactionForm = ({
     </Box>
 
   );
-  
+
 };
 
 export default TransactionForm;

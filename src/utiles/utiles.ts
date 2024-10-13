@@ -24,7 +24,7 @@ export function formatMonth(date: Date):string {
 //-----------------------------------------//
 // 日本円変換 関数
 //-----------------------------------------//
-export function formmatCurrency(amount: number): string {
+export function formatCurrency(amount: number): string {
   return amount.toLocaleString("ja-JP");
 }
 

@@ -11,6 +11,7 @@
 **/
 
 import { Grid, Paper } from "@mui/material";
+
 import MonthSelector from "../components/layout/MonthSelector";
 import CategoryChart from "../components/layout/CategoryChart";
 import BarChart from "../components/layout/BarChart";
@@ -25,6 +26,7 @@ interface ReportProps {
   currentMonth: Date;
   setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
   monthlyTransactions: Transaction[];
+  onDeleteTransanction: (trasactionId: string | readonly string[]) => Promise<void>;
   isLoading: boolean;
 }
 
@@ -36,6 +38,7 @@ const Report = ({
   currentMonth,
   setCurrentMonth,
   monthlyTransactions,
+  onDeleteTransanction,
   isLoading
 }: ReportProps) => {
 
@@ -74,7 +77,7 @@ const Report = ({
 
       {/* 取引テーブル */}
       <Grid item xs={12}>
-        <TransactionTable />
+        <TransactionTable monthlyTransactions={monthlyTransactions} onDeleteTransanction={onDeleteTransanction} />
       </Grid>
 
     </Grid>

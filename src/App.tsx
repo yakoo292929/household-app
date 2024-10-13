@@ -158,15 +158,22 @@ function App() {
   //-----------------------------------------//
   // 取引削除処理
   //-----------------------------------------//
-  const handleDeleteTransanction = async (trasactionId: string) => {
+  const handleDeleteTransanction = async (trasactionIds: string | readonly string[]) => {
 
     try {
 
+      // 単一データの配列変換処理
+      const idsToDelete = Array.isArray(trasactionIds) ? trasactionIds : [trasactionIds];
+
       // firestoreデータ削除
-      const docRef = await deleteDoc(doc(db, "Transactions", trasactionId));
+      for (const id of idsToDelete) {
+           const docRef = await deleteDoc(doc(db, "Transactions", id));
+      }
 
       // 画面更新-削除以外データフィルタリング
-      const filteredTransactions = transactions.filter((transaction) => transaction.id !== trasactionId);
+        const filteredTransactions = transactions.filter(
+        (transaction) => !idsToDelete.includes(transaction.id)
+      );
       setTransactions(filteredTransactions);
 
     } catch(err) {
@@ -217,6 +224,7 @@ function App() {
                   currentMonth={currentMonth}
                   setCurrentMonth={setCurrentMonth}
                   monthlyTransactions={monthlyTransactions}
+                  onDeleteTransanction={handleDeleteTransanction}
                   isLoading={isLoading}
                 />
               }
@@ -231,7 +239,7 @@ function App() {
     </ThemeProvider>
 
   );
-  
+
 }
 
 export default App;

@@ -16,7 +16,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import { Transaction } from "../../types";
 import DailySummary from "./DailySummary";
-import { formmatCurrency } from "../../utiles/utiles";
+import { formatCurrency } from "../../utiles/utiles";
 import IconComponents from "../common/IconComponents";
 
 
@@ -141,7 +141,7 @@ const TransactionMenu = ({dailyTransactions, currentDay, onAddTransactionForm, o
                                 wordBreak: "break-all",
                               }}
                             >
-                              ¥{formmatCurrency(transaction.amount)}
+                              ¥{formatCurrency(transaction.amount)}
                             </Typography>
                           </Grid>
                         </Grid>

@@ -19,7 +19,7 @@ import { useTheme } from "@mui/material";
 import { isSameMonth } from "date-fns";
 
 import "../../calendar.css";
-import { calculateDailyBalances, formmatCurrency } from "../../utiles/utiles";
+import { calculateDailyBalances, formatCurrency } from "../../utiles/utiles";
 import { Balance, CalendarContent, Transaction } from "../../types/index";
 
 
@@ -64,9 +64,9 @@ const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentD
       const {income, expense, balance} = dailyBalances[date]
       return {
         start: date,
-        income: formmatCurrency(income),
-        expense: formmatCurrency(expense),
-        balance: formmatCurrency(balance),
+        income: formatCurrency(income),
+        expense: formatCurrency(expense),
+        balance: formatCurrency(balance),
       }
     })
   }

@@ -16,7 +16,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 import { Transaction } from "../../types/index";
-import { financeCalculations } from "../../utiles/utiles";
+import { financeCalculations, formatCurrency } from "../../utiles/utiles";
 
 
 //-----------------------------------------//
@@ -68,7 +68,7 @@ const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
                 fontSize: {xs: "0.8rem", sm: "1rem", md: "1.2rem"},
               }}
             >
-              ¥{income}
+              ¥{formatCurrency(income)}
             </Typography>
           </CardContent>
         </Card>
@@ -97,7 +97,7 @@ const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
                 fontSize: {xs: "0.8rem", sm: "1rem", md: "1.2rem"},
               }}
             >
-              ¥{expense}
+              ¥{formatCurrency(expense)}
             </Typography>
           </CardContent>
         </Card>
@@ -126,7 +126,7 @@ const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
                 fontSize: {xs: "0.8rem", sm: "1rem", md: "1.2rem"},
               }}
             >
-              ¥{balance}
+              ¥{formatCurrency(balance)}
             </Typography>
           </CardContent>
         </Card>

@@ -13,7 +13,7 @@
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 
 import { Transaction } from "../../types";
-import { financeCalculations, formmatCurrency } from "../../utiles/utiles";
+import { financeCalculations, formatCurrency } from "../../utiles/utiles";
 
 
 //-----------------------------------------//
@@ -54,7 +54,7 @@ const DailySummary = ({dailyTransactions}: DailySummaryProps) => {
                 fontWeight="fontWeightBold"
                 sx={{ wordBreak: "break-all", color: (theme) => theme.palette.incomeColor.main }}
               >
-                ¥{formmatCurrency(income)}
+                ¥{formatCurrency(income)}
               </Typography>
             </CardContent>
           </Card>
@@ -74,7 +74,7 @@ const DailySummary = ({dailyTransactions}: DailySummaryProps) => {
                 fontWeight="fontWeightBold"
                 sx={{ wordBreak: "break-all", color: (theme) => theme.palette.expenseColor.main }}
               >
-                ¥{formmatCurrency(expense)}
+                ¥{formatCurrency(expense)}
               </Typography>
             </CardContent>
           </Card>
@@ -94,7 +94,7 @@ const DailySummary = ({dailyTransactions}: DailySummaryProps) => {
                 fontWeight="fontWeightBold"
                 sx={{ wordBreak: "break-all", color: (theme) => theme.palette.balanceColor.main }}
               >
-                ¥{formmatCurrency(balance)}
+                ¥{formatCurrency(balance)}
               </Typography>
             </CardContent>
           </Card>
