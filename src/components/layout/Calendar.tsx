@@ -32,13 +32,20 @@ interface CalendarProps {
   setCurrentDay: React.Dispatch<React.SetStateAction<string>>;
   currentDay: string;
   today: string;
+  onDateClick: (dateInfo: DateClickArg) => void;
 }
-
 
 ////////////////////////////////////////////////////////////////////////
 // Calendar
 ////////////////////////////////////////////////////////////////////////
-const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentDay, today}: CalendarProps) => {
+const Calendar = ({
+  monthlyTransactions,
+  setCurrentMonth,
+  setCurrentDay,
+  currentDay,
+  today,
+  onDateClick
+}: CalendarProps) => {
 
   //-----------------------------------------//
   // useTheme：MUIスタイル設定
@@ -90,13 +97,6 @@ const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentD
     }
   }
 
-  //-----------------------------------------//
-  // 選択日付クリック 関数
-  //-----------------------------------------//
-  const handleDateClick = (dateInfo: DateClickArg) => {
-    setCurrentDay(dateInfo.dateStr);
-  }
-
 
   /////////////////////////////////////////////
   // 画面表示
@@ -130,7 +130,7 @@ const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentD
       events={[...calenderEvents, backgroundEvent]}
       eventContent={renderEventContent}
       datesSet={handleDateSet}
-      dateClick={handleDateClick}
+      dateClick={onDateClick}
     />
 
   );

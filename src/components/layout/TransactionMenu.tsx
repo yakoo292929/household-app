@@ -13,6 +13,7 @@
 import { Box, Button, Card, CardActionArea, CardContent, Drawer, Grid, List, ListItem, Stack, Typography } from "@mui/material";
 import NotesIcon from "@mui/icons-material/Notes";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { DateClickArg } from "@fullcalendar/interaction";
 
 import { Transaction } from "../../types";
 import DailySummary from "./DailySummary";
@@ -28,13 +29,24 @@ interface TransactionMenuProps {
   currentDay: string;
   onAddTransactionForm: () => void;
   onSelectTransaction: (transacton: Transaction) => void;
+  isMobile: boolean;
+  open: boolean;
+  onClose: () => void;
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 // TransactionMenu
 ////////////////////////////////////////////////////////////////////////
-const TransactionMenu = ({dailyTransactions, currentDay, onAddTransactionForm, onSelectTransaction }: TransactionMenuProps) => {
+const TransactionMenu = ({
+  dailyTransactions,
+  currentDay,
+  onAddTransactionForm,
+  onSelectTransaction,
+  isMobile,
+  open,
+  onClose
+ }: TransactionMenuProps) => {
 
   const menuDrawerWidth = 320;
 
@@ -45,24 +57,44 @@ const TransactionMenu = ({dailyTransactions, currentDay, onAddTransactionForm, o
 
     <Drawer
       sx={{
-        width: menuDrawerWidth,
+        width: isMobile ? "auto" : menuDrawerWidth,
         "& .MuiDrawer-paper": {
-          width: menuDrawerWidth,
+          width: isMobile ? "auto" : menuDrawerWidth,
           boxSizing: "border-box",
           p: 2,
-          top: 64,
-          height: `calc(100% - 64px)`,
+
+          ...(isMobile && {
+            height: "80vh",
+            borderTopRightRadius: 8,
+            borderTopLeftRadius: 8,
+          }),
+
+          ...(!isMobile && {
+            top: 64,
+            height: `calc(100% - 64px)`,
+
+          }),
+
         },
       }}
-      variant={"permanent"}
-      anchor={"right"}
+      variant={isMobile ? "temporary" : "permanent"}
+      anchor={isMobile ? "bottom" : "right"}
+      open={open}
+      onClose={onClose}
+      ModalProps={{
+        keepMounted: true,  // モバイルパフォーマンス向上
+      }}
+
     >
       <Stack sx={{ height: "100%" }} spacing={2}>
 
         {/* 日付 */}
         <Typography fontWeight={"fontWeightBold"}>日時： {currentDay}</Typography>
 
-        <DailySummary dailyTransactions={dailyTransactions}/>
+        <DailySummary
+          dailyTransactions={dailyTransactions}
+          columns={isMobile ? 3 : 2}
+        />
 
         {/* 内訳タイトル&内訳追加ボタン */}
         <Box

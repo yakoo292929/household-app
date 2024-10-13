@@ -11,7 +11,7 @@
 **/
 
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import MonthlySummary from "../components/layout/MonthlySummary";
 import TransactionMenu from "../components/layout/TransactionMenu";
 import TransactionForm from "../components/layout/TransactionForm";
@@ -19,6 +19,8 @@ import { Transaction } from "../types/index";
 import { format } from "date-fns";
 import { Schema } from "../validations/schema";
 import Calendar from "../components/layout/Calendar";
+import { theme } from "../theme/theme";
+import { DateClickArg } from "@fullcalendar/interaction";
 
 
 //-----------------------------------------//
@@ -45,12 +47,25 @@ const Home = ({
 }: HomeProps) => {
 
   //-----------------------------------------//
+  // useTheme：MUIスタイル設定
+  //-----------------------------------------//
+  const theme = useTheme();
+
+  //-----------------------------------------//
   // useState：状態管理
   //-----------------------------------------//
   const today = format(new Date(), "yyyy-MM-dd");
   const [currentDay, setCurrentDay] = useState(today);
   const [isEntryDrawerOpen, setIsEntryDrawerOpen] = useState(false);
   const [selectedTransactions, setSelectedTransactions] = useState<Transaction | null>(null);
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  //-----------------------------------------//
+  // useMediaQuery：コンポーネント表示
+  //-----------------------------------------//
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
 
   //-----------------------------------------//
   // 日取引取得
@@ -62,19 +77,31 @@ const Home = ({
   //-----------------------------------------//
   // 取引フォーム開閉
   //-----------------------------------------//
-  const CloseForm = () => {
-    setIsEntryDrawerOpen(!isEntryDrawerOpen);
+  const closeForm = () => {
+
     setSelectedTransactions(null);
+
+    if (isMobile) {
+        setIsDialogOpen(!isDialogOpen);
+    } else {
+        setIsEntryDrawerOpen(!isEntryDrawerOpen);
+    }
+
   };
 
   //-----------------------------------------//
-  // 取引フォーム開閉処理（内訳追加ボタン）
+  // 内訳追加ボタンを押した時
   //-----------------------------------------//
   const handleAddTransactionForm = () => {
-    if (selectedTransactions) {
-        setSelectedTransactions(null);
+
+    if (isMobile) {
+        setIsDialogOpen(true);
     } else {
-      setIsEntryDrawerOpen(!isEntryDrawerOpen);
+        if (selectedTransactions) {
+            setSelectedTransactions(null);
+        } else {
+            setIsEntryDrawerOpen(!isEntryDrawerOpen);
+        }
     }
 
   };
@@ -83,10 +110,31 @@ const Home = ({
   // 取引が選択された時の処理
   //-----------------------------------------//
   const handleSelectTransaction = (transacton: Transaction) => {
-    setIsEntryDrawerOpen(true);
+
     setSelectedTransactions(transacton);
+
+    if (isMobile) {
+        setIsDialogOpen(true);
+    } else {
+        setIsEntryDrawerOpen(true);
+    }
+
   }
 
+  //-----------------------------------------//
+  // モバイル用Drawerを閉じる処理
+  //-----------------------------------------//
+  const handleCloseMobileDrawer = () => {
+    setIsMobileDrawerOpen(false);
+  }
+
+  //-----------------------------------------//
+  // 選択日付クリック 関数
+  //-----------------------------------------//
+  const handleDateClick = (dateInfo: DateClickArg) => {
+    setCurrentDay(dateInfo.dateStr);
+    setIsMobileDrawerOpen(true);
+  }
 
   /////////////////////////////////////////////
   // 画面表示
@@ -104,6 +152,7 @@ const Home = ({
           setCurrentDay={setCurrentDay}
           currentDay={currentDay}
           today={today}
+          onDateClick={handleDateClick}
         />
       </Box>
 
@@ -114,9 +163,12 @@ const Home = ({
           currentDay={currentDay}
           onAddTransactionForm={handleAddTransactionForm}
           onSelectTransaction={handleSelectTransaction}
+          isMobile={isMobile}
+          open={isMobileDrawerOpen}
+          onClose={handleCloseMobileDrawer}
           />
         <TransactionForm
-          onCloseForm={CloseForm}
+          onCloseForm={closeForm}
           currentDay={currentDay}
           isEntryDrawerOpen={isEntryDrawerOpen}
           onSaveTransaction={onSaveTransaction}
@@ -124,6 +176,9 @@ const Home = ({
           onDeleteTransanction={onDeleteTransanction}
           setSelectedTransactions={setSelectedTransactions}
           onUpdateTransaction={onUpdateTransaction}
+          isMobile={isMobile}
+          isDialogOpen={isDialogOpen}
+          setIsDialogOpen={setIsDialogOpen}
         />
       </Box>
 

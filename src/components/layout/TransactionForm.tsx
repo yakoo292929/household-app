@@ -12,7 +12,7 @@
 
 import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Box, Button, ButtonGroup, FormControl, FormHelperText, IconButton, InputLabel, ListItemIcon, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Dialog, DialogContent, FormControl, FormHelperText, IconButton, InputLabel, ListItemIcon, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import AlarmIcon from "@mui/icons-material/Alarm";
@@ -41,6 +41,9 @@ interface TransactionFormProps {
   onDeleteTransanction: (transactionId: string | readonly string[]) => Promise<void>;
   setSelectedTransactions: React.Dispatch<React.SetStateAction<Transaction | null>>;
   onUpdateTransaction: (transaction: Schema, trasactionId: string) => Promise<void>;
+  isMobile: boolean;
+  isDialogOpen: boolean;
+  setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type IncomeExpense = "income" | "expense";
@@ -63,6 +66,9 @@ const TransactionForm = ({
   onDeleteTransanction,
   setSelectedTransactions,
   onUpdateTransaction,
+  isMobile,
+  isDialogOpen,
+  setIsDialogOpen,
 }: TransactionFormProps) => {
 
   const formWidth = 320;
@@ -164,6 +170,9 @@ const TransactionForm = ({
         .then(() => {
           console.log("更新しました。");
           setSelectedTransactions(null);
+          if (isMobile) {
+              setIsDialogOpen(false);
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -200,36 +209,20 @@ const TransactionForm = ({
     // 取引削除
     if (selectedTransactions) {
         onDeleteTransanction(selectedTransactions.id);
+        if (isMobile) {
+            setIsDialogOpen(false);
+        }
         setSelectedTransactions(null);
     }
 
   };
 
 
-  /////////////////////////////////////////////
-  // 画面表示
-  /////////////////////////////////////////////
-  return (
-
-    <Box
-      sx={{
-        position: "fixed",
-        top: 64,
-        right: isEntryDrawerOpen ? formWidth : "-2%",  // フォーム開閉調整
-        width: formWidth,
-        height: "100%",
-        bgcolor: "background.paper",
-        zIndex: (theme) => theme.zIndex.drawer - 1,
-        transition: (theme) =>
-          theme.transitions.create("right", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-        p: 2,
-        boxSizing: "border-box",
-        boxShadow: "0px 0px 15px -5px #777777",
-      }}
-    >
+  //-----------------------------------------//
+  // フォームコンテンツ
+  //-----------------------------------------//
+  const formContent = (
+    <>
 
       {/* 入力エリアヘッダー */}
       <Box display={"flex"} justifyContent={"space-between"} mb={2}>
@@ -379,7 +372,53 @@ const TransactionForm = ({
         </Stack>
       </Box>
 
-    </Box>
+    </>
+  )
+
+  /////////////////////////////////////////////
+  // 画面表示
+  /////////////////////////////////////////////
+  return (
+
+    <>
+
+      {isMobile ? (
+        // mobile
+        <Dialog
+          open={isDialogOpen}
+          onClose={onCloseForm}
+          fullWidth maxWidth={"sm"}
+        >
+          <DialogContent>
+            {formContent}
+          </DialogContent>
+        </Dialog>
+      ) : (
+        // PC
+        <Box
+          sx={{
+            position: "fixed",
+            top: 64,
+            right: isEntryDrawerOpen ? formWidth : "-2%",  // フォーム開閉調整
+            width: formWidth,
+            height: "100%",
+            bgcolor: "background.paper",
+            zIndex: (theme) => theme.zIndex.drawer - 1,
+            transition: (theme) =>
+              theme.transitions.create("right", {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
+            p: 2,
+            boxSizing: "border-box",
+            boxShadow: "0px 0px 15px -5px #777777",
+          }}
+        >
+          {formContent}
+        </Box>
+      )}
+
+    </>
 
   );
 
