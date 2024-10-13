@@ -11,16 +11,14 @@
 **/
 
 import { useState } from "react";
-
 import { Box } from "@mui/material";
-
 import MonthlySummary from "../components/layout/MonthlySummary";
-import Calendar from "../components/layout/Calendar";
 import TransactionMenu from "../components/layout/TransactionMenu";
 import TransactionForm from "../components/layout/TransactionForm";
 import { Transaction } from "../types/index";
 import { format } from "date-fns";
 import { Schema } from "../validations/schema";
+import Calendar from "../components/layout/Calendar";
 
 
 //-----------------------------------------//
@@ -60,7 +58,6 @@ const Home = ({
   const dailyTransactions = monthlyTransactions.filter((transaction) => {
     return transaction.date === currentDay;
   });
-  // console.log(dailyTransactions);
 
   //-----------------------------------------//
   // 取引フォーム開閉

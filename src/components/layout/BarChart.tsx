@@ -10,17 +10,7 @@
  * ===========================================================================================
 **/
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ChartData
-} from "chart.js";
-
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartData } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { calculateDailyBalances } from "../../utiles/utiles";
 import { Box, Typography, useTheme } from "@mui/material";
@@ -28,15 +18,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { Transaction } from "../../types";
 
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend);
 
 
 //-----------------------------------------//
@@ -53,8 +35,27 @@ interface BarChart {
 ////////////////////////////////////////////////////////////////////////
 const BarChart = ({monthlyTransactions, isLoading}: BarChart) => {
 
+  //-----------------------------------------//
+  // useTheme：MUIスタイル設定
+  //-----------------------------------------//
   const theme = useTheme();
 
+  //-----------------------------------------//
+  // 日毎収支計算
+  //-----------------------------------------//
+  const dailyBalances = calculateDailyBalances(monthlyTransactions);
+  // console.log(monthlyTransactions);
+
+  //-----------------------------------------//
+  // 日付・収入・支出データ配列取得
+  //-----------------------------------------//
+  const dateLabels = Object.keys(dailyBalances).sort();
+  const expenseData = dateLabels.map((day) => dailyBalances[day].expense);
+  const incomeData = dateLabels.map((day) => dailyBalances[day].income);
+
+  //-----------------------------------------//
+  // 棒グラフ設定
+  //-----------------------------------------//
   const options = {
     maintainAspectRatio: false,
     responsive: true,
@@ -68,15 +69,6 @@ const BarChart = ({monthlyTransactions, isLoading}: BarChart) => {
       }
     }
   };
-
-  // 日毎収支計算
-  const dailyBalances = calculateDailyBalances(monthlyTransactions);
-  // console.log(monthlyTransactions);
-
-  // 日付・支出・収入データ配列取得
-  const dateLabels = Object.keys(dailyBalances).sort();
-  const expenseData = dateLabels.map((day) => dailyBalances[day].expense);
-  const incomeData = dateLabels.map((day) => dailyBalances[day].income);
 
   const data: ChartData<"bar"> = {
     labels: dateLabels,
@@ -93,6 +85,7 @@ const BarChart = ({monthlyTransactions, isLoading}: BarChart) => {
       }
     ]
   };
+
 
   /////////////////////////////////////////////
   // 画面表示

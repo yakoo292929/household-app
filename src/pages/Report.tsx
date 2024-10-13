@@ -11,7 +11,6 @@
 **/
 
 import { Grid, Paper } from "@mui/material";
-
 import MonthSelector from "../components/layout/MonthSelector";
 import CategoryChart from "../components/layout/CategoryChart";
 import BarChart from "../components/layout/BarChart";
@@ -61,7 +60,9 @@ const Report = ({
 
       {/* 円グラフ */}
       <Grid item xs={12} md={4}>
-        <Paper sx={commonPaperStyle}><CategoryChart /></Paper>
+        <Paper sx={commonPaperStyle}>
+          <CategoryChart monthlyTransactions={monthlyTransactions} isLoading={isLoading} />
+        </Paper>
       </Grid>
 
       {/* 棒グラフ */}

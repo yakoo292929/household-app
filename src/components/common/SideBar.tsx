@@ -12,10 +12,10 @@
 
 import React, { CSSProperties } from "react";
 import { NavLink } from "react-router-dom";
-
 import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
+
 
 //-----------------------------------------//
 // 型定義
@@ -32,6 +32,7 @@ interface menuItem {
   path: string,
   icon: React.ComponentType,
 }
+
 
 ////////////////////////////////////////////////////////////////////////
 // SideBar
@@ -91,6 +92,7 @@ const SideBar = ({drawerWidth, mobileOpen, handleDrawerClose,handleDrawerTransit
 
     </div>
   );
+
 
   /////////////////////////////////////////////
   // 画面表示

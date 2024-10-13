@@ -40,7 +40,6 @@ const MonthSelector = ({currentMonth, setCurrentMonth}: MonthSelectorProps) => {
     setCurrentMonth(priviousMonth);
   }
 
-
   //-----------------------------------------//
   // datepicker変更日付取得 関数
   //-----------------------------------------//
@@ -49,7 +48,6 @@ const MonthSelector = ({currentMonth, setCurrentMonth}: MonthSelectorProps) => {
         setCurrentMonth(newDate);
     }
   }
-
 
   //-----------------------------------------//
   // 次月取得 関数

@@ -12,8 +12,7 @@
 
 import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-
-import { Box, Button, ButtonGroup, IconButton, ListItemIcon, MenuItem, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, FormControl, FormHelperText, IconButton, InputLabel, ListItemIcon, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import AlarmIcon from "@mui/icons-material/Alarm";
@@ -88,7 +87,6 @@ const TransactionForm = ({
   //-----------------------------------------//
   const [categories, setCategories] = useState(expenseCategories);
 
-
   //-----------------------------------------//
   // React Hokk Form
   //-----------------------------------------//
@@ -105,7 +103,6 @@ const TransactionForm = ({
   });
   // console.log(errors);
 
-
   //-----------------------------------------//
   // 収支タイプ切替 関数
   //-----------------------------------------//
@@ -116,38 +113,27 @@ const TransactionForm = ({
   // 監視
   const currentType = watch("type");
 
-
   //-----------------------------------------//
   // useEffect：副作用レンダリング以外の処理
   //-----------------------------------------//
   useEffect(() => {
-
     setValue("date", currentDay);
-
   }, [currentDay]);
 
-
   useEffect(() => {
-
     const newCategories = currentType === "expense" ? expenseCategories : incomeCategories;
     setCategories(newCategories);
-
   }, [currentType]);
 
-
   useEffect(() => {
-
     // 選択肢が更新されてたかどうか確認
     if (selectedTransactions) {
         const categoryExists = categories.some((category) => category.label === selectedTransactions.category);
         setValue("category", categoryExists ? selectedTransactions.category : "食費");
     }
-
   }, [selectedTransactions, categories]);
 
-
   useEffect(() => {
-
     if (selectedTransactions) {
         setValue("type", selectedTransactions.type);
         setValue("date", selectedTransactions.date);
@@ -164,9 +150,7 @@ const TransactionForm = ({
           content: "",
         });
     }
-
   }, [selectedTransactions]);
-
 
   //-----------------------------------------//
   // 取引保存処理
@@ -220,6 +204,7 @@ const TransactionForm = ({
     }
 
   };
+
 
   /////////////////////////////////////////////
   // 画面表示
@@ -313,23 +298,25 @@ const TransactionForm = ({
             name="category"
             control={control}
             render={({field}) => (
-              <TextField
-                error={!!errors.category}
-                helperText={errors.category?.message}
-                {...field}
-                id="カテゴリ"
-                label="カテゴリ"
-                select
-              >
-              {categories.map((category, index) => (
-                <MenuItem value={category.label} key={index}>
-                  <ListItemIcon>
-                    {category.icon}
-                  </ListItemIcon>
-                  {category.label}
-                </MenuItem>
-              ))}
-              </TextField>
+              <FormControl fullWidth error={!!errors.category}>
+                <InputLabel id="category-select-label">カテゴリ</InputLabel>
+                <Select
+                  {...field}
+                  labelId="category-select-label"
+                  id="category-select"
+                  label="カテゴリ"
+                >
+                  {categories.map((category, index) => (
+                    <MenuItem value={category.label} key={index}>
+                      <ListItemIcon>
+                        {category.icon}
+                      </ListItemIcon>
+                      {category.label}
+                    </MenuItem>
+                    ))}
+                </Select>
+                <FormHelperText>{errors.category?.message}</FormHelperText>
+              </FormControl>
             )}
           />
 
@@ -395,6 +382,7 @@ const TransactionForm = ({
     </Box>
 
   );
+  
 };
 
 export default TransactionForm;

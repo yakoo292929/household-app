@@ -12,7 +12,6 @@
 
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -22,6 +21,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 import SideBar from "../common/SideBar";
+
 
 const drawerWidth = 240;
 
@@ -37,7 +37,6 @@ export default function AppLayout() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
-
   //-----------------------------------------//
   // ドロワークローズ 関数
   //-----------------------------------------//
@@ -46,14 +45,12 @@ export default function AppLayout() {
     setMobileOpen(false);
   };
 
-
   //-----------------------------------------//
   // ドロワーアニメーション終了時 関数
   //-----------------------------------------//
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
   };
-
 
   //-----------------------------------------//
   // ドロワートグル 関数
@@ -129,4 +126,5 @@ export default function AppLayout() {
 
     </Box>
   );
+
 }

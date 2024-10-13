@@ -19,6 +19,7 @@ import DailySummary from "./DailySummary";
 import { formmatCurrency } from "../../utiles/utiles";
 import IconComponents from "../common/IconComponents";
 
+
 //-----------------------------------------//
 // 型定義
 //-----------------------------------------//
@@ -161,5 +162,7 @@ const TransactionMenu = ({dailyTransactions, currentDay, onAddTransactionForm, o
 
     </Drawer>
   );
+
 };
+
 export default TransactionMenu;

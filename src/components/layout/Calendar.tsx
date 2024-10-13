@@ -15,13 +15,13 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import jaLocale from "@fullcalendar/core/locales/ja";
 import { DatesSetArg, EventContentArg } from "@fullcalendar/core";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
-
 import { useTheme } from "@mui/material";
+import { isSameMonth } from "date-fns";
 
 import "../../calendar.css";
 import { calculateDailyBalances, formmatCurrency } from "../../utiles/utiles";
 import { Balance, CalendarContent, Transaction } from "../../types/index";
-import { isSameMonth } from "date-fns";
+
 
 //-----------------------------------------//
 // 型定義
@@ -40,12 +40,10 @@ interface CalendarProps {
 ////////////////////////////////////////////////////////////////////////
 const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentDay, today}: CalendarProps) => {
 
+  //-----------------------------------------//
+  // useTheme：MUIスタイル設定
+  //-----------------------------------------//
   const theme = useTheme();
-
-  const events = [
-    { title: 'Meeting', start: "2024-10-10" },
-    { title: 'Test', start: "2024-10-20", income: 300, expense: 200, balance: 100 },
-  ]
 
   const backgroundEvent = {
     start: currentDay,
@@ -53,27 +51,10 @@ const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentD
     backgroundColor: theme.palette.incomeColor.light,
   }
 
-  const renderEventContent = (eventInfo: EventContentArg) => {
-    // console.log(eventInfo);
-    return (
-      <div>
-        <div className="money" id="event-income">
-          {eventInfo.event.extendedProps.income}
-        </div>
-        <div className="money" id="event-expense">
-          {eventInfo.event.extendedProps.expense}
-        </div>
-        <div className="money" id="event-balance">
-          {eventInfo.event.extendedProps.balance}
-        </div>
-      </div>
-    )
-
-  }
-
+  //-----------------------------------------//
   // 日毎収支計算
+  //-----------------------------------------//
   const dailyBalances =  calculateDailyBalances(monthlyTransactions);
-  // console.log(dailyBalances);
 
   //-----------------------------------------//
   // カレンダーイベント作成 関数
@@ -90,10 +71,10 @@ const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentD
     })
   }
 
+  //-----------------------------------------//
   // カレンダーイベント作成
+  //-----------------------------------------//
   const calenderEvents = createCalendarEvent(dailyBalances);
-  // console.log(calenderEvents);
-  // console.log([...calenderEvents, backgroundEvent]);
 
   //-----------------------------------------//
   // 選択日付セット 関数
@@ -116,9 +97,30 @@ const Calendar = ({monthlyTransactions, setCurrentMonth, setCurrentDay, currentD
     setCurrentDay(dateInfo.dateStr);
   }
 
+
   /////////////////////////////////////////////
   // 画面表示
   /////////////////////////////////////////////
+  const renderEventContent = (eventInfo: EventContentArg) => {
+
+    return (
+
+      <div>
+        <div className="money" id="event-income">
+          {eventInfo.event.extendedProps.income}
+        </div>
+        <div className="money" id="event-expense">
+          {eventInfo.event.extendedProps.expense}
+        </div>
+        <div className="money" id="event-balance">
+          {eventInfo.event.extendedProps.balance}
+        </div>
+      </div>
+    );
+
+  };
+
+
   return (
 
     <FullCalendar

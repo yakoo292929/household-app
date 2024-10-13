@@ -13,10 +13,8 @@
 import { useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "./firebase";
-
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import { Transaction } from "./types/index";
@@ -34,14 +32,12 @@ import { Schema } from "./validations/schema";
 ////////////////////////////////////////////////////////////////////////
 function App() {
 
-
   //-----------------------------------------//
   // firestoreエラー判断 関数
   //-----------------------------------------//
   function isFireStoreError(err: unknown):err is {code: string, message: string} {
     return typeof err === "object" && err !== null && "code" in err;
   }
-
 
   //-----------------------------------------//
   // useState：状態管理
@@ -93,7 +89,6 @@ function App() {
 
   }, []);
 
-
   //-----------------------------------------//
   // 当月分の取引データ取得
   //-----------------------------------------//
@@ -101,7 +96,6 @@ function App() {
     return transaction.date.startsWith(formatMonth(currentMonth));
   });
   // console.log(monthlyTransactions);
-
 
   //-----------------------------------------//
   // 取引保存処理
@@ -133,7 +127,6 @@ function App() {
 
   };
 
-
   //-----------------------------------------//
   // 取引更新処理
   //-----------------------------------------//
@@ -161,7 +154,6 @@ function App() {
     }
 
   };
-
 
   //-----------------------------------------//
   // 取引削除処理
@@ -239,6 +231,7 @@ function App() {
     </ThemeProvider>
 
   );
+  
 }
 
 export default App;

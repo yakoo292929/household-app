@@ -18,6 +18,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import { Transaction } from "../../types/index";
 import { financeCalculations } from "../../utiles/utiles";
 
+
 //-----------------------------------------//
 // 型定義
 //-----------------------------------------//
@@ -31,7 +32,9 @@ interface MonthlySummaryProps {
 ////////////////////////////////////////////////////////////////////////
 const MonthlySummary = ({monthlyTransactions}: MonthlySummaryProps) => {
 
+  //-----------------------------------------//
   // トランザクション収支計算
+  //-----------------------------------------//
   const {income, expense, balance} = financeCalculations(monthlyTransactions);
 
 

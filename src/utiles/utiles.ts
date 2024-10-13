@@ -28,7 +28,6 @@ export function formmatCurrency(amount: number): string {
   return amount.toLocaleString("ja-JP");
 }
 
-
 //-----------------------------------------//
 // トランザクション収支計算 関数
 //-----------------------------------------//

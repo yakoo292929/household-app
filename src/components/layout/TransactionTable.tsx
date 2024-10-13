@@ -19,7 +19,9 @@ const TransactionTable = () => {
   // 画面表示
   /////////////////////////////////////////////
   return (
+
     <div>TransactionTable</div>
+
   );
 
 };
